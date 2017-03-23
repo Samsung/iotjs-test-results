@@ -1,0 +1,39 @@
+.infobox > div.row {
+	padding: 8px 0;
+	border: 1px solid #ddd;
+	margin: 0;
+	margin-bottom: 16px;
+}
+
+.infobox .bold {
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+.infobox p {
+	line-height: 2.2em;
+	margin: 0;
+}
+
+.infobox small {
+	display: inline-block;
+	padding-top: 8px;
+	vertical-align: top;
+}
+
+.infobox small:last-child {
+	width: calc(100% - 2em);
+	margin-left: 0.5em;
+}
+
+.infobox img {
+	height: 98px;
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 24px;
+}
+
+.infobox img + div {
+	vertical-align: top;
+	display: inline-block;
+}
