@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>IoT.js test results</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="css/c3.css">
+  <link rel="stylesheet" href="css/chart.css">
+  <link rel="stylesheet" href="css/infobox.css">
+  <link rel="stylesheet" href="css/pagination.css">
+  <link rel="stylesheet" href="css/testruns.css">
+  <link id="css-dynamic" rel="stylesheet" href="css/device_stm32.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/third-party/c3/c3.min.js"></script>
+  <script src="js/third-party/c3/d3.v3.min.js"></script>
+  <script src="js/chart_settings.js"></script>
+  <script src="js/load_jsons.js"></script>
+  <script src="js/render_entries.js"></script>
+
+  <style>
+    body { padding-top: 70px; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://iotjs.net"><b>IoT.js</b></a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li id="show-stm32" class="active"><a href="#">STM32</a></li>
+        <li id="show-rpi2"><a href="#">Raspberry Pi2</a></li>
+        <li><a href="http://github.com/Samsung/iotjs">View on Github</a></li>
+        <li><a href="http://www.jerryscript.net">Powered by <b>JerryScript</b></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container infobox">
+  <div class="row">
+    <div class="col-sm-8 col-md-7">
+      <img id="info-image">
+      <div>
+        <p><span class="bold">Test device:</span><a id="info-device"></a></p>
+        <p><span class="bold">Platform:</span><a id="info-platform"></a></p>
+        <p><span class="bold">Repository:</span><a href="https://github.com/Samsung/iotjs">IoT.js master branch</a></p>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-5">
+      <small><i class="fa fa-info-circle" aria-hidden="true"></i></small>
+      <small>The binary size information is based on the stripped release build of IoT.js, by cross compiling for the Raspberry Pi 2 target.<br><br>IoT.js tests run once a day using the latest master.</small>
+    </div>
+  </div>
+</div>
+
+<div class="container chart-wrapper">
+  <div class="row">
+    <div class="row">
+      <div class="col-md-12">
+        <p>Date range from <input type="text" class="form-control" id="chart-datepicker-from"> to <input type="text" class="form-control" id="chart-datepicker-to"></p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div id="binary-chart"></div>
+    </div>
+    <div class="col-md-6">
+      <div id="memory-chart"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="pagination top"></div>
+<div id="loading"><p>Loading...</p></div>
+<div id="testruns"></div>
+</div>
+
+<script type="text/javascript">
+  $('#show-stm32').click(function(event){ change_device("stm32"); });
+  $('#show-rpi2').click(function(event){ change_device("rpi2"); });
+</script>
+
+</body>
+</html>

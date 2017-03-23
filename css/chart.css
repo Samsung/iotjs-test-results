@@ -1,0 +1,12 @@
+.chart-wrapper > div.row {
+  padding: 8px 0;
+  margin: 0;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.chart-wrapper .form-control {
+  position: relative;
+  width: 260px;
+  display: inline;
+}

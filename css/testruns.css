@@ -1,0 +1,309 @@
+html {
+	font-size: 16px;
+	overflow-y: scroll;
+}
+
+.mono {
+	font-family: monospace;
+}
+
+.light {
+	color: #999;
+}
+
+@keyframes anim_appear {
+	from {
+		opacity: 0;
+	}
+}
+
+.testrun {
+	line-height: 250%;
+	max-height: 36px;
+
+	border: 1px solid #ddd;
+
+	padding-left: 10px;
+	margin-bottom: 8px;
+	overflow: hidden;
+
+	transition:
+		box-shadow 0.170s,
+		max-height 0.17s ease-out;
+	animation: anim_appear 0.2s ease-out;
+
+	font-family: Arial, sans-serif;
+}
+
+	.testrun:hover,
+	.testrun.expanded {
+		box-shadow: 0px 6px 6px rgba(0,0,0,0.2);
+	}
+	.testrun.expanded {
+		border: 1px solid #bbb;
+	}
+
+	.testrun.pass {
+		background: linear-gradient(to right, #4a6 0px, #4a6 10px, #fff 10px, #fff 100%) no-repeat;
+	}
+	.testrun.fail {
+		background: linear-gradient(to right, #e44 0px, #e44 10px, #fff 10px, #fff 100%) no-repeat;
+	}
+
+	.testrun.expanded {
+		max-height: 1000px;
+	}
+
+	.testrun .preview {
+		margin-bottom: 16px;
+	}
+
+.numresults,
+.binary,
+.submodules,
+.morebtn,
+.tests {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	vertical-align: top;
+	border-collapse: collapse;
+}
+
+
+.morebtn {
+	display: block;
+	float: right;
+	width: 40px;
+	height: 36px;
+	cursor: pointer;
+	text-align: center;
+	transition: transform 0.5s;
+	margin-left: 10px;
+}
+
+	.morebtn {
+		font-size: 1.5em;
+		top: -4px;
+	}
+
+	.testrun:hover .morebtn {
+		color: #F50;
+		font-size: 1.8em;
+		font-weight: bold;
+	}
+
+	.testrun.expanded > .morebtn,
+	.tests div.expanded .morebtn {
+		transform: rotate(-180deg);
+	}
+
+
+.numresults {
+	list-style-type: none;
+	text-align: left;
+	margin-left: 18px;
+	font-weight: bold;
+}
+	.numresults li {
+		display: inline-block;
+		width: 50px;
+		margin-right: 10px;
+	}
+
+	.numresults li.pass {
+		color: #4a6;
+	}
+	.numresults li.fail {
+		color: #e44;
+	}
+	.numresults li.skip {
+		color: #eb1;
+	}
+
+	.numresults i {
+		padding-right: 10px;
+	}
+
+
+.binary {
+	margin-right: 15px;
+}
+
+	.binary td {
+		border: 1px solid #eee;
+		border-top: 0;
+		padding: 0 8px;
+		width: 100px;
+	}
+
+	.binary td:first-child {
+		text-align: right;
+	}
+
+
+.submodules {
+	padding-left: 8px;
+}
+
+	.submodules tr {
+		border-bottom: 1px solid #eee;
+	}
+
+	.submodules td {
+		padding: 0 8px;
+	}
+
+	.submodules td:first-child {
+		min-width: 85px;
+		text-align: right;
+	}
+	.submodules td:last-child {
+		max-width: 400px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
+	.submodules .author,
+	.submodules .date {
+		display: none;
+	}
+
+
+.date {
+	float: right;
+}
+
+
+.showhide {
+	display: inline-block;
+	float: right;
+	font-weight: normal;
+}
+
+	.showhide input {
+		margin: 0 4px;
+		padding: 0;
+		line-height: 250%;
+		height: 36px;
+	}
+
+	.showhide span {
+		display: inline-block;
+	}
+	.showhide span:first-child {
+		line-height: 250%;
+		height: 36px;
+
+		padding: 0 8px;
+		font-size: 1.2em;
+
+		vertical-align: top;
+		top: -3px;
+		position: relative;
+	}
+	.showhide span:nth-child(2) {
+		background-color: #4a6;
+	}
+	.showhide span:nth-child(3) {
+		background-color: #e44;
+	}
+	.showhide span:last-child {
+		background-color: #eb1;
+	}
+
+
+.tests {
+	margin: 0 16px;
+	width: calc(100% - 32px);
+	max-height: 300px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+	.tests:last-child {
+		margin-bottom: 10px;
+	}
+
+	.tests table {
+		width: 100%;
+	}
+
+	.tests thead {
+		font-weight: bold
+	}
+	.tests thead td:last-child {
+		padding-right: 0;
+	}
+
+	.tests td {
+		border: 1px solid #eee;
+		padding: 0 8px;
+		position: relative;
+	}
+	.tests td:first-child {
+		width: 310px;
+	}
+	.tests td:nth-child(2) {
+		width: 65px;
+		text-align: center;
+	}
+	.tests td:nth-child(3) {
+		width: 100px;
+		text-align: right;
+	}
+	.tests td:nth-child(4) {
+		width: 75px;
+		text-align: left;
+	}
+	.tests td:last-child div:first-child {
+		max-height: 36px;
+		overflow: hidden;
+		transition: max-height 0.5s ease-out;
+	}
+	.tests td:last-child div:first-child.expanded {
+		max-height: 1000px;
+	}
+	.tests td .morebtn {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
+	.tests tr.pass {
+		background-color: #e1ffe1;
+	}
+	.tests tr.pass:hover {
+		background-color: #B5ECB4;
+	}
+	.tests tr.fail {
+		background-color: #ffe1e1;
+	}
+	.tests tr.fail:hover {
+		background-color: #FFC5C5;
+	}
+	.tests tr.skip {
+		background-color: #fffcde;
+	}
+	.tests tr.skip:hover {
+		background-color: #FFF68E;
+	}
+
+.nochange {
+	line-height: 200%;
+
+	padding: 0 10px;
+	margin-bottom: 5px;
+	margin-left: 32px;
+
+	border: 1px solid #ddd;
+	color: #888;
+
+	animation: anim_appear 0.5s ease-out;
+}
+
+	.nochange div {
+		display: inline-block;
+		vertical-align: top;
+	}
