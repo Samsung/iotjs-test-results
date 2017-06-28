@@ -12,6 +12,7 @@ function change_device(device) {
 	$('#show-' + device).addClass('active');
 	$('#css-dynamic').attr('href', 'css/device_' + device + '.css');
 	clear();
+	fetch_chart_data(device);
 	set_info(device);
 	fetch_data(device);
 }

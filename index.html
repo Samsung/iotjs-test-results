@@ -8,6 +8,9 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="css/c3.css">
+  <link rel="stylesheet" href="css/chart.css">
   <link rel="stylesheet" href="css/infobox.css">
   <link rel="stylesheet" href="css/pagination.css">
   <link rel="stylesheet" href="css/testruns.css">
@@ -15,6 +18,10 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/third-party/c3/c3.min.js"></script>
+  <script src="js/third-party/c3/d3.v3.min.js"></script>
+  <script src="js/chart_settings.js"></script>
   <script src="js/load_jsons.js"></script>
   <script src="js/render_entries.js"></script>
 
@@ -59,6 +66,22 @@
     <div class="col-sm-4 col-md-5">
       <small><i class="fa fa-info-circle" aria-hidden="true"></i></small>
       <small>The binary size information is based on the stripped release build of IoT.js, by cross compiling for the Raspberry Pi 2 target.<br><br>IoT.js tests run once a day using the latest master.</small>
+    </div>
+  </div>
+</div>
+
+<div class="container chart-wrapper">
+  <div class="row">
+    <div class="row">
+      <div class="col-md-12">
+        <p>Date range from <input type="text" class="form-control" id="chart-datepicker-from"> to <input type="text" class="form-control" id="chart-datepicker-to"></p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div id="binary-chart"></div>
+    </div>
+    <div class="col-md-6">
+      <div id="memory-chart"></div>
     </div>
   </div>
 </div>
