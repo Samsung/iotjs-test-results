@@ -256,9 +256,17 @@ function render_testruns(idx, idx_end) {
   var testruns = [];
   var promises = [];
 
-  for (var i = idx; i < idx_end; i++) {
-    query = g_db_ref.child(g_db_keys[i]);
+  if (idx == idx_end)
+  {
+    query = g_db_ref.child(g_db_keys[idx]);
     promises.push(query.once('value'));
+  }
+  else
+  {
+    for (var i = idx; i < idx_end; i++) {
+      query = g_db_ref.child(g_db_keys[i]);
+      promises.push(query.once('value'));
+    }
   }
 
   Promise.all(promises)
