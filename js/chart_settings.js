@@ -114,6 +114,9 @@ function iso_date(date) {
 }
 
 function fetch_chart_data(device) {
+  generate_chart([], 'binary');
+  generate_chart([], 'memory');
+
   if (!firebase.apps.length || g_db_keys.length <= 0) {
     return;
   }
