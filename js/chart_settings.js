@@ -42,8 +42,8 @@ function generate_chart(data, type) {
 
   if (type === 'memory') {
     line_color = '#ff7f0e';
-    type_key = 'total_memory';
-    label_name = 'total memory';
+    type_key = 'average_memory';
+    label_name = 'average memory';
   }
 
   var chart = c3.generate({
@@ -154,16 +154,21 @@ function update_chart(from, to) {
   date_to.setDate(date_to.getDate() + 1);
   g_db_ref.orderByChild('date').startAt(iso_date(from)).endAt(iso_date(date_to)).once("value", function(testcases) {
     testcases.forEach(function (testcase) {
+      var memory_counter = 0;
       var data = testcase.val();
       data.date = iso_date(data.date);
 
-      data.total_memory = 0;
+      data.average_memory = 0;
       data.tests.forEach(function(testname) {
         var number = parseInt(Number(testname.memory));
         if (number == testname.memory) {
-          data.total_memory += number;
+          memory_counter++;
+          data.average_memory += number;
         }
       });
+
+      if (memory_counter > 0)
+        data.average_memory /= memory_counter;
 
       slice.push(data);
     });
