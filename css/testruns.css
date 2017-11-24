@@ -245,6 +245,10 @@ html {
 		padding-right: 0;
 	}
 
+    .tests td:nth-child(3), .tests td:nth-child(4), .tests td:nth-child(5) {
+        white-space: nowrap;
+    }
+
 	.tests td, th {
 		border: 1px solid #eee;
 		padding: 0 8px;
