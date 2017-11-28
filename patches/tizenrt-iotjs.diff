@@ -1,28 +1,30 @@
-diff --git a/build/configs/artik053/artik053_download.sh b/build/configs/artik053/artik053_download.sh
-index eabbc3f..4e40e1a 100755
---- a/build/configs/artik053/artik053_download.sh
-+++ b/build/configs/artik053/artik053_download.sh
-@@ -129,6 +129,15 @@ main()
- 			popd
- 			;;
- 
-+		RESET|reset)
-+			echo "board reset"
+diff --git a/build/configs/artik05x/artik05x_download.sh b/build/configs/artik05x/artik05x_download.sh
+index d9c444b..38ee68a 100755
+--- a/build/configs/artik05x/artik05x_download.sh
++++ b/build/configs/artik05x/artik05x_download.sh
+@@ -197,6 +197,17 @@ while test $# -gt 0; do
+         ERASE_*)
+             erase
+             ;;
 +
-+			pushd ${OPENOCD_DIR_PATH}
-+			${OPENOCD_BIN_PATH}/openocd -f artik053.cfg -c ' 	\
-+			reset; \
-+			exit'
-+			popd
-+			;;
- 		*)
- 			echo "${arg} is not suppported in artik053"
- 			echo "Usage : make download [ ALL | ERASE_USERFS ]"
-diff --git a/build/configs/artik053/tools/openocd/artik053.cfg b/build/configs/artik053/tools/openocd/artik053.cfg
-index 1e18d50..bddfb64 100644
---- a/build/configs/artik053/tools/openocd/artik053.cfg
-+++ b/build/configs/artik053/tools/openocd/artik053.cfg
-@@ -251,5 +251,13 @@ proc flash_erase_part { partition } {
++        RESET|reset)
++            echo "board reset"
++
++            pushd ${OPENOCD_DIR_PATH} > /dev/null
++            ${OPENOCD_BIN_PATH}/openocd -f artik05x.cfg -c '    \
++            reset; \
++            exit'
++            popd
++            ;;
++
+         *)
+             usage 1>&2
+             exit 1
+diff --git a/build/configs/artik05x/scripts/artik05x.cfg b/build/configs/artik05x/scripts/artik05x.cfg
+index 8da4c4d..20df872 100644
+--- a/build/configs/artik05x/scripts/artik05x.cfg
++++ b/build/configs/artik05x/scripts/artik05x.cfg
+@@ -259,5 +259,13 @@ proc flash_erase_part { partition } {
  		flash_erase $start $size -silent
  	}
  }
