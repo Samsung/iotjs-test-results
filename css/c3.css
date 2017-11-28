@@ -138,7 +138,8 @@
   margin-right: 6px; }
 
 .c3-tooltip td.value {
-  text-align: right; }
+  text-align: right;
+  font-family: monospace; }
 
 /*-- Area --*/
 .c3-area {

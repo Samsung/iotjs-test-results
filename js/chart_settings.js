@@ -40,7 +40,7 @@ function generate_chart(data, type, y_axis_min) {
 
   if (type === 'memory') {
     var type_key = 'average_memory';
-    var label_name = 'average memory (KB)';
+    var label_name = 'average memory consumption (KB)';
 
     var typedData = {
       json: data,
@@ -123,17 +123,15 @@ function generate_chart(data, type, y_axis_min) {
           '<tr class="c3-tooltip-name--binary">' +
             '<td class="name">' +
               '<span style="background-color: ' + color(d[0]) + '"></span>' +
-              d[0].name +
             '</td>' +
-            '<td class="value">' + ((d[0].value === null) ? 'N/A' : d[0].value.toFixed(1)) + '</td>' +
+            '<td class="value">' + ((d[0].value === null) ? 'n/a' : d[0].value.toFixed(1)) + ' KB</td>' +
           '</tr>';
           if (type === 'binary') {
             tt += '<tr class="c3-tooltip-name--binary">' +
             '<td class="name">' +
               '<span style="background-color: ' + color(d[1]) + '"></span>' +
-              d[1].name +
             '</td>' +
-            '<td class="value">' + ((d[1].value === null) ? 'N/A' : d[1].value.toFixed(1)) + '</td>' +
+            '<td class="value">' + ((d[1].value === null) ? 'n/a' : d[1].value.toFixed(1)) + ' KB</td>' +
           '</tr>';
           }
           tt += '<tr class="c3-tooltip-name--commit">' +
