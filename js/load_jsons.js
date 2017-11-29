@@ -3,7 +3,12 @@ var g_db_keys = [];
 var g_db_ref = "";
 
 $(document).ready(function() {
-  change_device("artik053");
+  var device = get_parameter_by_name('device');
+  var supported_devices = ['stm32', 'rpi2', 'artik053'];
+  // Set artik053 as a default device
+  if (!(supported_devices.includes(device)))
+    device = 'artik053';
+  change_device(device);
 });
 
 function change_device(device) {
@@ -83,4 +88,9 @@ function fetch_keys(device) {
       fetch_chart_data(device);
 
     });
+}
+
+function get_parameter_by_name(name) {
+  var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
