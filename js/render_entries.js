@@ -1,9 +1,5 @@
 var c_one_day_ms = 1000 * 60 * 60 * 24;
 
-function hide_loading() {
-  $("#loading").hide();
-}
-
 function render_testrun(uid, testrun, earlier_testrun) {
   var passed = 0;
   var skipped = 0;
@@ -374,7 +370,7 @@ function render_testruns(idx, idx_end) {
       }(testrun_ref));
     }
 
-    hide_loading();
+    render_done('entries');
   });
 }
 

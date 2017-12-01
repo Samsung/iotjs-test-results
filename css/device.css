@@ -1,0 +1,15 @@
+#target-info {
+  display: none;
+}
+
+#target-info-placeholder {
+  display: block;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.loading-part {
+  display: none;
+}
+
+

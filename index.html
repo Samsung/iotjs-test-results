@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="css/c3.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/device.css">
   <link rel="stylesheet" href="css/chart.css">
   <link rel="stylesheet" href="css/infobox.css">
   <link rel="stylesheet" href="css/pagination.css">
@@ -21,13 +23,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="js/third-party/c3/c3.min.js"></script>
   <script src="js/third-party/c3/d3.v3.min.js"></script>
+  <script src="js/constants.js"></script>
+  <script src="js/firebase_init.js"></script>
   <script src="js/chart_settings.js"></script>
   <script src="js/load_jsons.js"></script>
   <script src="js/render_entries.js"></script>
-
-  <style>
-    body { padding-top: 70px; }
-  </style>
+  <script src="js/render_home_stats.js"></script>
 </head>
 <body>
 
@@ -44,10 +45,13 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li id="show-artik053" class="active"><a href="#">Artik 053</a></li>
-        <li id="show-rpi2"><a href="#">Raspberry Pi2</a></li>
-        <li id="show-stm32"><a href="#">STM32</a></li>
+        <li id="show-home" class="active"><a id="link-home" href="?view=home">Home</a></li>
+        <li id="show-artik053"><a id="link-artik053" href="?view=artik053">Artik 053</a></li>
+        <li id="show-rpi2"><a id="link-rpi2" href="?view=rpi2">Raspberry Pi2</a></li>
+        <li id="show-stm32"><a id="link-stm32" href="?view=stm32">STM32</a></li>
+      </ul>
 
+      <ul class="nav navbar-nav navbar-right">
         <li><a href="http://github.com/Samsung/iotjs">View on Github</a></li>
         <li><a href="http://www.jerryscript.net">Powered by <b>JerryScript</b></a></li>
       </ul>
@@ -55,53 +59,74 @@
   </div>
 </nav>
 
-<div class="container infobox">
-  <div class="row">
-    <div class="col-sm-8 col-md-7">
-      <img id="info-image">
-      <div>
-        <p><span class="bold">Test device:</span><a id="info-device"></a></p>
-        <p><span class="bold">Platform:</span><a id="info-platform"></a></p>
-        <p><span class="bold">Repository:</span><a href="https://github.com/Samsung/iotjs">IoT.js master branch</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container chart-wrapper">
-  <div class="row">
+<div id="home-info">
+  <div class="container">
     <div class="row">
-      <div class="col-md-10">
-        <p>Date range from <input type="text" class="form-control" id="chart-datepicker-from"> to <input type="text" class="form-control" id="chart-datepicker-to">
-        </p>
+      <div class="col-md-12">
+        <div class="project-title text-center">
+          <h1>IoT.js</h1>
+          <p class="lead">Automated correctness and performance test results</p>
+        </div>
+        <div class="project-overview">
+          <p>The purpose of the project is to run the official IoT.js test-suite on different platforms. The testing happens once a day (at UTC 17:00) using the latest master.</p>
+          <p>Since IoT.js focuses on low footprint devices, the run-time memory consumption is tracked during the test execution. This means that each passed tests have information about their peak usage of the stack and the heap memory areas. The size of the compiled IoT.js is also saved.</p>
+          <p>The collected values are visualized on charts that help to observe how IoT.js evolves day by day. If you are interested in a platform, please choose one of the options below.</p>
+        </div>
+        <div class="project-targets" id="home-targets">
+          <p class="text-center targets-placeholder">Loading target information...</p>
+        </div>
       </div>
-      <div class="col-md-2">
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Chart info</button>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div id="binary-chart"></div>
-    </div>
-    <div class="col-md-6">
-      <div id="memory-chart"></div>
     </div>
   </div>
 </div>
 
-<div class="container">
-<div class="pagination top"></div>
-<div id="loading"><p>Loading...</p></div>
-<div id="testruns"></div>
+<div id="target-info">
+
+  <div class="container infobox">
+    <div class="row">
+      <div class="col-sm-8 col-md-7">
+        <img id="info-image">
+        <div>
+          <p><span class="bold">Test device:</span><a id="info-device"></a></p>
+          <p><span class="bold">Platform:</span><a id="info-platform"></a></p>
+          <p><span class="bold">Repository:</span><a href="https://github.com/Samsung/iotjs">IoT.js master branch</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="target-info-placeholder">
+    <p>Loading the device information...</p>
+  </div>
+
+  <div class="container chart-wrapper loading-part">
+    <div class="row">
+      <div class="row">
+        <div class="col-md-10">
+          <p>Date range from <input type="text" class="form-control" id="chart-datepicker-from"> to <input type="text" class="form-control" id="chart-datepicker-to">
+          </p>
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Chart info</button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div id="binary-chart"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="memory-chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container loading-part">
+    <div class="pagination top"></div>
+    <div id="testruns"></div>
+  </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-<script type="text/javascript">
-  $('#show-artik053').click(function(event){ change_device("artik053"); });
-  $('#show-rpi2').click(function(event){ change_device("rpi2"); });
-  $('#show-stm32').click(function(event){ change_device("stm32"); });
-</script>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">

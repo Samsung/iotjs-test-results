@@ -1,3 +1,5 @@
+var charts = [];
+
 function init_datepickers(first_date, last_date) {
   var picker_options = {
     dateFormat: 'yy-mm-dd',
@@ -67,7 +69,7 @@ function generate_chart(data, type, y_axis_min) {
 
     var label_name_first = 'target-profile binary size (KB)';
     var label_name_second = 'minimal-profile binary size (KB)';
-    console.log(data)
+
     var typedData = {
       json: data,
       names: {
@@ -145,6 +147,8 @@ function generate_chart(data, type, y_axis_min) {
       }
     }
   });
+
+  charts.push(chart);
 }
 
 function iso_date(date) {
@@ -152,9 +156,6 @@ function iso_date(date) {
 }
 
 function fetch_chart_data(device) {
-  generate_chart([], 'binary', 0);
-  generate_chart([], 'memory', 0);
-
   if (!firebase.apps.length || g_db_keys.length <= 0) {
     return;
   }
@@ -240,5 +241,7 @@ function update_chart(from, to) {
 
     y_axis_min = (min_avg_memory / 2).toFixed();
     generate_chart(slice, 'memory', y_axis_min);
+
+    render_done('chart');
   });
 }
