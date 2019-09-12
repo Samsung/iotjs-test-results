@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import re
 
 from jstest.builder import lumpy
 from jstest.common import utils
@@ -49,14 +50,47 @@ def create_build_info(env):
     build_info = {
         'build-date': utils.current_date('%Y-%m-%dT%H.%M.%SZ'),
         'last-commit-date': submodules[env.options.app]['date'],
-        'bin': calculate_section_sizes(env.paths.builddir),
+        'bin': calculate_section_sizes(env.options.device, env.paths.builddir),
         'submodules': submodules
     }
 
     utils.write_json_file(utils.join(env.paths.builddir, 'build.json'), build_info)
 
 
-def calculate_section_sizes(builddir):
+def calculate_section_sizes(target, builddir):
+    '''
+    Return the sizes of the main sections.
+    '''
+    if target == 'rpi3':
+        return calculate_section_sizes_dynamic_linking(builddir)
+
+    return calculate_section_sizes_static_linking(builddir)
+
+
+def calculate_section_sizes_dynamic_linking(builddir):
+    '''
+    Return the sizes of the main sections.
+    '''
+    section_sizes = {
+        'bss': 0,
+        'text': 0,
+        'data': 0,
+        'rodata': 0
+    }
+
+    output, exitcode = utils.execute(builddir, 'size', ['-A', '%s/lib/libiotjs.so' % builddir], quiet=True)
+
+    if exitcode == 0:
+        for section_name in section_sizes:
+            match = re.search(r'\.%s[\ ]+([0-9]+)' % section_name, output)
+
+            if match:
+                section_sizes[section_name] = int(match.group(1))
+
+    return section_sizes
+
+
+def calculate_section_sizes_static_linking(builddir):
     '''
     Return the sizes of the main sections.
     '''
@@ -68,7 +102,7 @@ def calculate_section_sizes(builddir):
     }
 
     mapfile = utils.join(builddir, 'linker.map')
-    libdir = utils.join(builddir, 'libs')
+    libdir = utils.join(builddir, 'lib')
 
     if not (utils.exists(mapfile) and utils.exists(libdir)):
         return section_sizes
